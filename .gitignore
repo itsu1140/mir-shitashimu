@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# dataset
+GTZAN/
+image_split/
+
+#output
+*.png
