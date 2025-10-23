@@ -1735,6 +1735,7 @@ dev = [
     { name = "soundfile" },
     { name = "torch" },
     { name = "torchvision" },
+    { name = "tqdm" },
 ]
 
 [package.metadata]
@@ -1751,6 +1752,7 @@ dev = [
     { name = "soundfile", specifier = ">=0.13.1" },
     { name = "torch", specifier = ">=2.9.0" },
     { name = "torchvision", specifier = ">=0.24.0" },
+    { name = "tqdm", specifier = ">=4.67.1" },
 ]
 
 [[package]]
