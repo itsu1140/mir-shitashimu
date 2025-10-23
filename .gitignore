@@ -1,3 +1,5 @@
+.env
+
 # Python-generated files
 __pycache__/
 *.py[oc]
@@ -10,8 +12,12 @@ wheels/
 .venv
 
 # dataset
-GTZAN/
+GTZAN
 image_split/
+audio_split/
 
 #output
 *.png
+
+wandb/
+checkpoint.pt

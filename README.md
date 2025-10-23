@@ -1,13 +1,57 @@
 # MIR に親しむ
 
-MIR に親しむの作業資料です
+MIR に親しむの作業資料です．
+コードは秘伝のタレなので私が書いたものではありません．
 
 [notion ページ](https://www.notion.so/283d5612f793800e98b3fe6542b52dc8?pvs=25)
 
 ## 環境の作成
-仮想環境には uv を使用しています
-```
-uv sync
-```
-により環境の作成が始まります
+仮想環境には uv を使用しています．
+uv のセットアップの後 `uv sync` により環境の作成が始まります．
 
+## 課題1
+
+`.abc` ファイルから波形データを作成し，オンセット，ピッチ推定を行う．
+推定値から正弦波で音声を合成する．
+
+
+## 課題2
+
+参考
+
+https://deeplearning.neuromatch.io/projects/ComputerVision/spectrogram_analysis.html
+
+https://www.kaggle.com/code/eonuonga/gtzan-genre-classification-preprocessing-1-2
+
+[GTZAN](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification) データセットを用いて，音楽ジャンルの分類を行います．GTZANデータセットにはオーディオファイルとメルスペクトログラムの画像が含まれています
+(元のデータセットは一部データが破損しているため実際に使用しているのは[こちら](https://www.kaggle.com/datasets/murataktan/gtzan-fixed))．
+各種特徴量を用いて CNN モデルを学習し，ジャンル分類を行います．
+
+### 学習1
+
+波形データのメルスペクトログラムからジャンル分類を行うモデルの学習
+
+- `uv run python3 setup.py` でデータセットのリンクとデータ用のディレクトリを用意
+- `uv run python3 main.py` により学習開始
+
+### 学習2
+
+波形データの MFCC ，クロマグラムとその $\Delta$ 及び $\Delta\Delta$ 特徴量からジャンル分類を行うモデルの学習
+
+学習には [WandB](https://wandb.ai/) の API キーが必要です．
+`training-2/.env` に
+
+```
+WANDB_API_KEY=your_api_key
+```
+
+を記述し，エディタの `setting.json` に
+
+```
+"python.envFile":"${workspaceFolder}/.env"
+```
+
+を記述してください．
+
+- `uv run python3 setup/setup.py` で特徴量を抽出，結合して保存する処理を行う
+- `uv run python3 main.py` により学習開始
