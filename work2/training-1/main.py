@@ -1,7 +1,7 @@
 import torch
-from make_dataset import get_dataset
-from model import Music_net
-from plot import plot_loss_accuracy
+from src.make_dataset import get_dataset
+from src.model import Music_net
+from src.plot import plot_loss_accuracy
 from torch import nn
 from tqdm import tqdm
 
