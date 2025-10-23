@@ -1,23 +1,15 @@
 import random
 import shutil
 from pathlib import Path
-
-TRAIN_DATA_PATH = Path("image_split")
-
-
-def get_data_directories():
-    return [
-        TRAIN_DATA_PATH / "train",
-        TRAIN_DATA_PATH / "test",
-        TRAIN_DATA_PATH / "val",
-    ]
+from src.make_dataset import get_data_directories
 
 
-def make_data_directories():
+def main():
+    train_data_path = Path("image_split")
     data_path = Path("GTZAN")
-    if TRAIN_DATA_PATH.exists():
-        shutil.rmtree(TRAIN_DATA_PATH)
-    Path.mkdir(TRAIN_DATA_PATH)
+    if train_data_path.exists():
+        shutil.rmtree(train_data_path)
+    Path.mkdir(train_data_path)
 
     # 学習用，テスト用，検証用のディレクトリ作成
     spectrograms_dir = data_path / "images_original"
@@ -55,4 +47,4 @@ def make_data_directories():
 
 
 if __name__ == "__main__":
-    make_data_directories()
+    main()
