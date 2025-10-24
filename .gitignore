@@ -18,6 +18,7 @@ audio_split/
 
 #output
 *.png
+piano_sample_gen.wav
 
 wandb/
 checkpoint.pt
