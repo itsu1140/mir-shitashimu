@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 import pandas as pd
@@ -12,7 +13,6 @@ def random_split(files, labels):
     データセットをトレーニング (80%)，バリデーション (10%)，テスト (10%) にランダムに分割します．
     各分割のジャンルの分布が等しくなるようにします．
     """
-
     seed = 0
     files_train, files_val_test, labels_train, labels_val_test = (
         sklearn.model_selection.train_test_split(
@@ -39,13 +39,22 @@ def random_split(files, labels):
     # Create Dataset objects for each split
     splits = {
         "train": GTZAN_setup(
-            files_train, labels_train, n_features=GTZAN_setup.D, scaler=None
+            files_train,
+            labels_train,
+            n_features=GTZAN_setup.D,
+            scaler=None,
         ),
         "val": GTZAN_setup(
-            files_val, labels_val, n_features=GTZAN_setup.D, scaler=None
+            files_val,
+            labels_val,
+            n_features=GTZAN_setup.D,
+            scaler=None,
         ),
         "test": GTZAN_setup(
-            files_test, labels_test, n_features=GTZAN_setup.D, scaler=None
+            files_test,
+            labels_test,
+            n_features=GTZAN_setup.D,
+            scaler=None,
         ),
     }
     return labels, splits
@@ -57,6 +66,8 @@ def preprocess(labels: dict, splits: dict):
     結果が `.pt` ファイルに保存されるため，一度実行すれば再度の実行は不要です．
     """
     split_dir_path = Path("./audio_split")
+    if split_dir_path.exists():
+        shutil.rmtree(split_dir_path)
     for split in tqdm(("train", "val", "test"), desc="Split"):
         # Create a sub-directory for each dataset split
         split_data_path = split_dir_path / split / "data"
@@ -65,7 +76,7 @@ def preprocess(labels: dict, splits: dict):
         # Store the labels for the dataset split
         split_data = splits[split]
         labels[split].reset_index(drop=True).to_csv(
-            split_dir_path / split / "labels.csv"
+            split_dir_path / split / "labels.csv",
         )
 
         # Preprocess each audio sample from the dataset split and store the resulting Tensor
@@ -84,7 +95,6 @@ def main():
     GTZAN Dataset には，3秒の録音と30秒の録音の2つのバリエーションがあります．
     30秒のデータセット情報は `features_30_sec.csv` に格納されており，ここからファイル名とラベルを取得できます．
     """
-
     data_path = Path("GTZAN")
     if not data_path.exists():
         data_path.symlink_to("/work2/itsuki/shitashimu/GTZAN", target_is_directory=True)
