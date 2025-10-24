@@ -2,6 +2,7 @@
 
 MIR に親しむの作業資料です．
 コードは秘伝のタレなので私が書いたものではありません．
+アップデートは Fork なりしてやってください．
 
 [notion ページ](https://www.notion.so/283d5612f793800e98b3fe6542b52dc8?pvs=25)
 
@@ -17,15 +18,10 @@ uv のセットアップの後 `uv sync` により環境の作成が始まりま
 
 ## 課題2
 
-参考
-
-https://deeplearning.neuromatch.io/projects/ComputerVision/spectrogram_analysis.html
-
-https://www.kaggle.com/code/eonuonga/gtzan-genre-classification-preprocessing-1-2
-
-[GTZAN](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification) データセットを用いて，音楽ジャンルの分類を行います．GTZANデータセットにはオーディオファイルとメルスペクトログラムの画像が含まれています
-(元のデータセットは一部データが破損しているため実際に使用しているのは[こちら](https://www.kaggle.com/datasets/murataktan/gtzan-fixed))．
+[GTZAN](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification) データセットを用いて，音楽ジャンルの分類を行います．
+GTZANデータセットにはオーディオファイルとメルスペクトログラムの画像が含まれています (元のデータセットは一部データが破損しているため実際に使用しているのは[こちら](https://www.kaggle.com/datasets/murataktan/gtzan-fixed))．
 各種特徴量を用いて CNN モデルを学習し，ジャンル分類を行います．
+`notebook/` 以下のファイルを動かしたい場合は拡張機能 [Jupytext](https://marketplace.visualstudio.com/items?itemName=congyiwu.vscode-jupytext) の利用をお勧めします．
 
 ### 学習1
 
@@ -55,3 +51,9 @@ WANDB_API_KEY=your_api_key
 
 - `uv run python3 setup/setup.py` で特徴量を抽出，結合して保存する処理を行う
 - `uv run python3 main.py` により学習開始
+
+### 参考
+
+[Music classification and generation with spectrograms](https://deeplearning.neuromatch.io/projects/ComputerVision/spectrogram_analysis.html)
+
+[GTZAN Genre Classification Preprocessing](https://www.kaggle.com/code/eonuonga/gtzan-genre-classification-preprocessing-1-2)
