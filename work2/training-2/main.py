@@ -4,10 +4,10 @@ from pathlib import Path
 
 import sklearn
 import torch
-from optuna_study_trial import optuna_study
 from plot.heatmap import plot_heatmap
 from plot.loss_accuracy import plot_loss_accuracy
 from src.make_dataset import GTZAN
+from src.optuna_study_trial import optuna_study
 
 
 def main():

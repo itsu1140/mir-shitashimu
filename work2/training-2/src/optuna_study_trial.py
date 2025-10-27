@@ -1,10 +1,10 @@
 import optuna
 import torch
-import torch.nn as nn
 import wandb as wb
 from optuna.integration.wandb import WeightsAndBiasesCallback
 from src.model import GTZANCNN
 from src.train import train
+from torch import nn
 
 
 # Callback to save the model that had the best Optuna trial
@@ -57,22 +57,30 @@ def optuna_study(
 
         # Initialize the model and send it to GPU
         model = GTZANCNN(n_classes, n_channels, channel_widths, n_linear, dropout).to(
-            device
+            device,
         )
         trial.set_user_attr(key="model", value=model)
 
         # Set Adam optimizer and negative log-likelihood loss function
         optimizer = torch.optim.Adam(
-            model.parameters(), lr=learning_rate, weight_decay=weight_decay
+            model.parameters(),
+            lr=learning_rate,
+            weight_decay=weight_decay,
         )
         criterion = nn.NLLLoss()
 
         # Create training, validation and test set batch iterators
         train_gen = torch.utils.data.DataLoader(
-            train_set, batch_size=16, shuffle=True, num_workers=2
+            train_set,
+            batch_size=16,
+            shuffle=True,
+            num_workers=2,
         )
         val_gen = torch.utils.data.DataLoader(
-            val_set, batch_size=16, shuffle=True, num_workers=2
+            val_set,
+            batch_size=16,
+            shuffle=True,
+            num_workers=2,
         )
 
         # Train model and evaluate validation NLL

@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 import sklearn
 import torch
-from GTZAN_setup import GTZAN_setup
+from setup.gtzan_setup import gtzan_setup
 from tqdm import tqdm
 
 
@@ -38,23 +38,17 @@ def random_split(files, labels):
 
     # Create Dataset objects for each split
     splits = {
-        "train": GTZAN_setup(
+        "train": gtzan_setup(
             files_train,
             labels_train,
-            n_features=GTZAN_setup.D,
-            scaler=None,
         ),
-        "val": GTZAN_setup(
+        "val": gtzan_setup(
             files_val,
             labels_val,
-            n_features=GTZAN_setup.D,
-            scaler=None,
         ),
-        "test": GTZAN_setup(
+        "test": gtzan_setup(
             files_test,
             labels_test,
-            n_features=GTZAN_setup.D,
-            scaler=None,
         ),
     }
     return labels, splits
