@@ -15,6 +15,12 @@ uv のセットアップの後 `uv sync` により環境の作成が始まりま
 `.abc` ファイルから波形データを作成し，オンセット，ピッチ推定を行う．
 推定値から正弦波で音声を合成する．
 
+- `work1/` に移動
+- `build.sh` で必要なライブラリをインストール
+- `sheet.sh` で wav, pdf の作成
+> [!NOTE]
+> 現在のバージョンでは wav の合成はできない
+
 
 ## 課題2
 
@@ -27,6 +33,7 @@ GTZANデータセットにはオーディオファイルとメルスペクトロ
 
 波形データのメルスペクトログラムからジャンル分類を行うモデルの学習
 
+- `work2/training-1/` に移動
 - `uv run python3 setup.py` でデータセットのリンクとデータ用のディレクトリを用意
 - `uv run python3 main.py` により学習開始
 
@@ -49,7 +56,8 @@ WANDB_API_KEY=your_api_key
 
 を記述してください．
 
-- `uv run python3 setup/setup.py` で特徴量を抽出，結合して保存する処理を行う
+- `work2/training-2/` に移動
+- `uv run python3 setup.py` で特徴量を抽出，結合して保存する処理を行う
 - `uv run python3 main.py` により学習開始
 
 ### 参考
