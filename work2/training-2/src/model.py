@@ -1,4 +1,4 @@
-import torch.nn as nn
+from torch import nn
 
 
 class ConvolutionalBlock(nn.Module):
@@ -56,7 +56,7 @@ class ConvolutionalBlock(nn.Module):
                     nn.ReLU(),
                 ),
                 "flatten": nn.Flatten(),
-            }
+            },
         )
 
         self.show_shapes = False
@@ -87,18 +87,25 @@ class ClassificationBlock(nn.Module):
         self.model = nn.ModuleDict(
             {
                 "fc1": nn.Sequential(
-                    nn.LazyLinear(n_linear[0]), nn.ReLU(), nn.Dropout(dropout[0])
+                    nn.LazyLinear(n_linear[0]),
+                    nn.ReLU(),
+                    nn.Dropout(dropout[0]),
                 ),
                 "fc2": nn.Sequential(
-                    nn.LazyLinear(n_linear[1]), nn.ReLU(), nn.Dropout(dropout[1])
+                    nn.LazyLinear(n_linear[1]),
+                    nn.ReLU(),
+                    nn.Dropout(dropout[1]),
                 ),
                 "fc3": nn.Sequential(
-                    nn.LazyLinear(n_linear[2]), nn.ReLU(), nn.Dropout(dropout[2])
+                    nn.LazyLinear(n_linear[2]),
+                    nn.ReLU(),
+                    nn.Dropout(dropout[2]),
                 ),
                 "softmax": nn.Sequential(
-                    nn.LazyLinear(n_classes), nn.LogSoftmax(dim=1)
+                    nn.LazyLinear(n_classes),
+                    nn.LogSoftmax(dim=1),
                 ),
-            }
+            },
         )
 
     def forward(self, x):

@@ -1,13 +1,13 @@
 from pathlib import Path
 
-import torch
 import librosa
 import matplotlib.pyplot as plt
+import torch
 
 DATA_PATH = Path("GTZAN")
 
 
-class GTZAN_setup(torch.utils.data.Dataset):
+class gtzan_setup(torch.utils.data.Dataset):
     """
     特徴量の正規化や標準化は，ネットワーク・パラメータを最適化する際の収束や速度の改善に役立ちます．
     ここでは正規化を行います．
@@ -23,11 +23,11 @@ class GTZAN_setup(torch.utils.data.Dataset):
     # Number of channels - feature types (MFCC + ∆ + ∆∆, Chromagram + ∆ + ∆∆)
     C = 6
 
-    def __init__(self, files, labels, n_features, scaler=None, **args):
+    def __init__(self, files, labels, n_features=None, scaler=None, **args):
         super().__init__()
         self.files = files
         self.labels = labels
-        self.n_features = n_features
+        self.n_features = gtzan_setup.D if n_features is None else n_features
         self.scaler = scaler
         self.args = args
 
@@ -60,12 +60,12 @@ class GTZAN_setup(torch.utils.data.Dataset):
 
         # Only keep the first T frames (as there are some recordings that are slightly over 30s)
         return (
-            mfcc[:, : GTZAN_setup.T],
-            mfcc_d[:, : GTZAN_setup.T],
-            mfcc_dd[:, : GTZAN_setup.T],
-            chroma[:, : GTZAN_setup.T],
-            chroma_d[:, : GTZAN_setup.T],
-            chroma_dd[:, : GTZAN_setup.T],
+            mfcc[:, : gtzan_setup.T],
+            mfcc_d[:, : gtzan_setup.T],
+            mfcc_dd[:, : gtzan_setup.T],
+            chroma[:, : gtzan_setup.T],
+            chroma_d[:, : gtzan_setup.T],
+            chroma_dd[:, : gtzan_setup.T],
         )
         # Shape(s): [D x T]
 
@@ -73,16 +73,16 @@ class GTZAN_setup(torch.utils.data.Dataset):
         if self.scaler == "standardize":
             # Standardizing to zero mean and unit std. dev.
             return (x - x.mean(dim=(1, 2), keepdim=True)) / x.std(
-                dim=(1, 2), keepdim=True
+                dim=(1, 2),
+                keepdim=True,
             )
-        elif self.scaler == "min-max":
+        if self.scaler == "min-max":
             # Min-max scaling to [0, 1]
             return (x - x.amin(dim=(1, 2), keepdim=True)) / (
                 x.amax(dim=(1, 2), keepdim=True) - x.amin(dim=(1, 2), keepdim=True)
             )
-        else:
-            # No scaling
-            return x
+        # No scaling
+        return x
 
     def to_tensor(self, x):
         # Scale these features and combine them into a multi-channel input
@@ -135,7 +135,9 @@ class GTZAN_setup(torch.utils.data.Dataset):
         for i in range(6):
             ax = fig.add_axes([i * x_step, i * y_step, 1.0, 1.0])
             librosa.display.specshow(
-                x[5 - i], ax=ax, x_axis=("time" if i == 5 else None)
+                x[5 - i],
+                ax=ax,
+                x_axis=("time" if i == 5 else None),
             )
 
         if path:

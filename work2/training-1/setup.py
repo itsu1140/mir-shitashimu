@@ -1,6 +1,7 @@
 import random
 import shutil
 from pathlib import Path
+
 from src.make_dataset import get_data_directories
 
 
@@ -11,7 +12,7 @@ def main():
         shutil.rmtree(train_data_path)
     Path.mkdir(train_data_path)
 
-    # 学習用，テスト用，検証用のディレクトリ作成
+    # 学習用, テスト用, 検証用のディレクトリ作成
     spectrograms_dir = data_path / "images_original"
     train_data_directories = get_data_directories()
 
@@ -22,10 +23,8 @@ def main():
         Path.mkdir(directory)
 
     for genre in spectrograms_dir.iterdir():
-        # 学習・テスト・検証データに分割
-        src_file_paths = []
-        for image in genre.glob("*.png"):
-            src_file_paths.append(image)
+        # 学習, テスト, 検証データに分割
+        src_file_paths = list(genre.glob("*.png"))
         random.shuffle(src_file_paths)
         test_files = src_file_paths[0:10]
         val_files = src_file_paths[10:20]
@@ -36,7 +35,7 @@ def main():
         for directory in train_data_directories:
             Path.mkdir(directory / genre.name)
 
-        # 学習・テスト用画像のハードリンクの作成
+        # 学習, テスト用画像のハードリンクの作成
         for data_dir, files in zip(
             train_data_directories,
             shuffled_directories,
