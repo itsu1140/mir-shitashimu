@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import pandas as pd
 import torch
 
@@ -11,7 +12,7 @@ class GTZAN(torch.utils.data.Dataset):
         self.data_files = [data_path / item.name for item in data_path.iterdir()]
         self.data_files.sort(key=self.get_id)
         self.labels = pd.read_csv(self.path(split, "labels.csv"), index_col=0).squeeze(
-            "columns"
+            "columns",
         )
         self.encoder = encoder
 
@@ -19,7 +20,7 @@ class GTZAN(torch.utils.data.Dataset):
         return int(file_path.stem)  # remove extension
 
     def path(self, *sub):
-        return Path(".").joinpath(*sub)
+        return Path().joinpath(*sub)
 
     def __len__(self):
         return len(self.labels)

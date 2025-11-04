@@ -11,8 +11,6 @@ class ConvolutionalBlock(nn.Module):
     """
 
     def __init__(self, n_channels, channel_widths):
-        super().__init__()
-
         self.model = nn.ModuleDict(
             {
                 "conv1": nn.Sequential(
@@ -82,8 +80,6 @@ class ClassificationBlock(nn.Module):
     """
 
     def __init__(self, n_classes, n_linear, dropout):
-        super().__init__()
-
         self.model = nn.ModuleDict(
             {
                 "fc1": nn.Sequential(

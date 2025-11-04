@@ -2,9 +2,10 @@ import optuna
 import torch
 import wandb as wb
 from optuna.integration.wandb import WeightsAndBiasesCallback
+from torch import nn
+
 from src.model import GTZANCNN
 from src.train import train
-from torch import nn
 
 
 # Callback to save the model that had the best Optuna trial
