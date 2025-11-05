@@ -12,6 +12,7 @@ dev = [
     "jupyter>=1.1.1",
     "librosa==0.11",
     "matplotlib>=3.10.7",
+    "music21>=9.9.1",
     "optuna-integration[wandb]>=4.5.0",
     "scikit-learn>=1.7.2",
     "seaborn>=0.13.2",
