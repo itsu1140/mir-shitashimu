@@ -15,10 +15,14 @@ wheels/
 GTZAN
 image_split/
 audio_split/
+*.sf2
 
 #output
 *.png
 piano_sample_gen.wav
+*.mid
+*.ps
+*.pdf
 
 wandb/
 checkpoint.pt
